@@ -15,12 +15,17 @@
         <div class="card-body">
             <h1 class="card-title display-5 mb-3">{{ post.title }}</h1>
             <p class="card-subtitle text-muted mb-4">{{ post.meta_description }}</p>
-            <div class="card-text fs-5">{{ post.content|safe }}</div>
+            <div class="card-text fs-5">
+                {{ post.content|safe|linebreaksbr }}
+            </div>
         </div>
     </div>
-    <!-- Tambahan di bawah card -->
-    <div class="mt-4">
-        {{ post.content|safe }}
-    </div>
 </div>
+
+<!-- Optional: CSS to style h1, h2, h3 inside post content -->
+<style>
+.card-text h1, .mt-4 h1 { font-size: 2.5rem; margin-top: 1.5rem; }
+.card-text h2, .mt-4 h2 { font-size: 2rem; margin-top: 1.2rem; }
+.card-text h3, .mt-4 h3 { font-size: 1.5rem; margin-top: 1rem; }
+</style>
 {% endblock %}

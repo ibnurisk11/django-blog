@@ -1,12 +1,29 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-    <h2>Artikel Terbaru</h2>
+<div class="container" style="max-width: 800px; margin: auto; padding: 2rem 1rem;">
+
+    <h2 style="font-size: 2rem; font-weight: bold; margin-bottom: 2rem;">📰 Artikel Terbaru</h2>
+
     {% for post in posts %}
-        <article>
-            <h3><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h3>
-            <p>Kategori: {{ post.category.name }}</p>
-            <p>{{ post.content|truncatechars:200 }}</p>
-        </article>
+    <div style="border: 1px solid #e2e8f0; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+        <h3 style="font-size: 1.5rem; font-weight: bold; color: #2563eb; margin-bottom: 0.5rem;">
+            <a href="{% url 'post_detail' pk=post.pk %}" style="text-decoration: none; color: #2563eb;">
+                {{ post.title }}
+            </a>
+        </h3>
+
+        <p style="font-size: 0.875rem; color: #718096; margin-bottom: 1rem;">
+            Kategori: <strong>{{ post.category.name }}</strong> • {{ post.created_at|date:"d M Y" }}
+        </p>
+
+        <p style="font-size: 1rem; color: #2d3748;">
+            {{ post.meta_description|default:post.content|striptags|truncatewords:30 }}
+        </p>
+    </div>
+    {% empty %}
+        <p>Tidak ada artikel yang tersedia.</p>
     {% endfor %}
+
+</div>
 {% endblock %}
