@@ -1,1 +1,1 @@
-# django-blog
+Techanisius Blog Website

@@ -1,0 +1,22 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block head %}
+<meta name="description" content="{{ post.meta_description }}">
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="card shadow-lg">
+        {% if post.featured_image %}
+        <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="card-img-top img-fluid rounded-top">
+        {% endif %}
+        <div class="card-body">
+            <h1 class="card-title display-5 mb-3">{{ post.title }}</h1>
+            <p class="card-subtitle text-muted mb-4">{{ post.meta_description }}</p>
+            <div class="card-text fs-5">{{ post.content|safe }}</div>
+        </div>
+    </div>
+</div>
+{% endblock %}

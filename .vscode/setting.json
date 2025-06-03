@@ -1,0 +1,4 @@
+{
+    "python.analysis.extraPaths": ["${workspaceFolder}/blog_project"],
+    "python.linting.pylanceEnabled": true
+}
