@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import slugify
-from ckeditor.fields import RichTextField
+from tinymce.models import HTMLField  # Ganti import ini
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
@@ -14,7 +14,7 @@ class Post(models.Model):
     slug = models.SlugField(unique=True, blank=True)
     meta_description = models.CharField(max_length=160, blank=True, help_text="Deskripsi untuk SEO (maks 160 karakter)")
     featured_image = models.ImageField(upload_to='blog_images/', blank=True, null=True)
-    content = RichTextField()
+    content = HTMLField()  # Ganti field ini
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -25,5 +25,5 @@ class Post(models.Model):
     
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title)  # Auto-generate slug dari title
+            self.slug = slugify(self.title)
         super().save(*args, **kwargs)

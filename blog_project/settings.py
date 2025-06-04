@@ -19,7 +19,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog',
     'accounts',
-    'ckeditor',
+    'tinymce',
 ]
 
 STATIC_URL = '/static/'
