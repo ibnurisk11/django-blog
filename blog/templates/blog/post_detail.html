@@ -4,6 +4,19 @@
 
 {% block head %}
 <meta name="description" content="{{ post.meta_description }}">
+<meta property="og:title" content="{{ post.title }}">
+<meta property="og:description" content="{{ post.meta_description }}">
+<meta property="og:type" content="article">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+{% if post.featured_image %}
+<meta property="og:image" content="{{ post.featured_image.url }}">
+{% endif %}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ post.title }}">
+<meta name="twitter:description" content="{{ post.meta_description }}">
+{% if post.featured_image %}
+<meta name="twitter:image" content="{{ post.featured_image.url }}">
+{% endif %}
 {% endblock %}
 
 {% block content %}
@@ -26,7 +39,9 @@
             <h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">{{ post.title }}</h1>
             
             {% if post.meta_description %}
-            <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">{{ post.meta_description }}</p>
+            <p class="text-lg text-gray-600 dark:text-gray-900 mb-6 bg-orange-200 rounded px-4 py-3">
+                {{ post.meta_description }}
+            </p>
             {% endif %}
             
             <div class="prose dark:prose-invert max-w-none">
