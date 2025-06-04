@@ -1,29 +1,31 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-<div class="container" style="max-width: 800px; margin: auto; padding: 2rem 1rem;">
-
-    <h2 style="font-size: 2rem; font-weight: bold; margin-bottom: 2rem;">📰 Artikel Terbaru</h2>
+<div class="max-w-4xl mx-auto px-4 py-8">
+    <h2 class="text-3xl font-bold mb-8 dark:text-white">📰 Artikel Terbaru</h2>
 
     {% for post in posts %}
-    <div style="border: 1px solid #e2e8f0; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-        <h3 style="font-size: 1.5rem; font-weight: bold; color: #2563eb; margin-bottom: 0.5rem;">
-            <a href="{% url 'post_detail' pk=post.pk %}" style="text-decoration: none; color: #2563eb;">
+    <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-6 mb-8 shadow-sm dark:shadow-none dark:bg-dark-700">
+        <h3 class="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-2">
+            <a href="{% url 'post_detail' pk=post.pk %}" class="hover:underline">
                 {{ post.title }}
             </a>
         </h3>
 
-        <p style="font-size: 0.875rem; color: #718096; margin-bottom: 1rem;">
-            Kategori: <strong>{{ post.category.name }}</strong> • {{ post.created_at|date:"d M Y" }}
-        </p>
+        <div class="flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-gray-400 mb-4">
+            <span>Kategori: <strong>{{ post.category.name }}</strong></span>
+            <span>•</span>
+            <span>Oleh: <strong>{{ post.author.username }}</strong></span>
+            <span>•</span>
+            <span>Dipublikasikan: <strong>{{ post.created_at|date:"d M Y" }}</strong></span>
+        </div>
 
-        <p style="font-size: 1rem; color: #2d3748;">
+        <p class="text-gray-800 dark:text-gray-300">
             {{ post.meta_description|default:post.content|striptags|truncatewords:30 }}
         </p>
     </div>
     {% empty %}
-        <p>Tidak ada artikel yang tersedia.</p>
+        <p class="text-gray-600 dark:text-gray-400">Tidak ada artikel yang tersedia.</p>
     {% endfor %}
-
 </div>
 {% endblock %}

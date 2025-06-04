@@ -1,36 +1,65 @@
-{% extends "blog/base.html" %}
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
 
 {% block content %}
-<div class="container mt-4">
-    <h1 class="mb-4">Artikel Terbaru</h1>
-    
-    <!-- Daftar Artikel -->
-    <div class="row">
-        {% for post in posts %}
-        <div class="col-md-6 mb-4">
-            <div class="card h-100">
-                {% if post.featured_image %}
-                <img src="{{ post.featured_image.url }}" class="card-img-top" alt="{{ post.title }}" style="height: 200px; object-fit: cover;">
-                {% endif %}
-                <div class="card-body">
-                    <h5 class="card-title">{{ post.title }}</h5>
-                    <p class="text-muted">
-                        <small>
-                            Oleh: {{ post.author.username }} | 
-                            Kategori: {{ post.category.name }} | 
-                            {{ post.created_at|date:"d M Y" }}
-                        </small>
-                    </p>
-                    <p class="card-text">{{ post.meta_description|default:"" }}</p>
-                    <a href="{% url 'post_detail' post.pk %}" class="btn btn-primary">Baca Selengkapnya</a>
+<div class="p-6">
+    <!-- Bagian App List -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        {% for app in app_list %}
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+            <h2 class="text-xl font-bold mb-4 dark:text-white">
+                <a href="{{ app.app_url }}" class="text-blue-600 dark:text-blue-400">{{ app.name }}</a>
+            </h2>
+            
+            <div class="space-y-2">
+                {% for model in app.models %}
+                <div class="flex justify-between items-center py-2 border-b border-gray-100 dark:border-gray-700">
+                    <div>
+                        <a href="{{ model.admin_url }}" class="font-medium text-gray-800 dark:text-gray-200 hover:underline">
+                            {{ model.name }}
+                        </a>
+                    </div>
+                    <div class="flex space-x-2">
+                        {% if model.add_url %}
+                        <a href="{{ model.add_url }}" class="text-green-600 hover:text-green-800 dark:hover:text-green-400 text-sm">
+                            + Add
+                        </a>
+                        {% endif %}
+                        {% if model.admin_url %}
+                        <a href="{{ model.admin_url }}" class="text-blue-600 hover:text-blue-800 dark:hover:text-blue-400 text-sm">
+                            ✓ Change
+                        </a>
+                        {% endif %}
+                    </div>
                 </div>
+                {% endfor %}
             </div>
         </div>
-        {% empty %}
-        <div class="col-12">
-            <div class="alert alert-info">Belum ada artikel tersedia.</div>
-        </div>
         {% endfor %}
+    </div>
+
+    <!-- Bagian Recent Actions -->
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+        <h2 class="text-xl font-bold mb-4 dark:text-white">{% trans 'Recent actions' %}</h2>
+        <h3 class="font-medium mb-2 dark:text-gray-300">{% trans 'My actions' %}</h3>
+        
+        <div class="space-y-3">
+            {% for entry in admin_log %}
+            <div class="border-b border-gray-100 dark:border-gray-700 pb-3">
+                <div class="text-sm text-gray-600 dark:text-gray-400">
+                    {{ entry.content_type.name|capfirst }}: 
+                    <a href="{{ entry.get_admin_url }}" class="font-medium text-gray-800 dark:text-gray-200 hover:underline">
+                        {{ entry.object_repr }}
+                    </a>
+                </div>
+                <div class="text-xs text-gray-500 dark:text-gray-500 mt-1">
+                    {{ entry.action_time|date:"DATETIME_FORMAT" }} - {{ entry.user.get_username }}
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-gray-600 dark:text-gray-400">{% trans 'None available' %}</p>
+            {% endfor %}
+        </div>
     </div>
 </div>
 {% endblock %}

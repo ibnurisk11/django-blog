@@ -1,139 +1,172 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="{% if request.COOKIES.theme == 'dark' %}dark{% endif %}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Techanius Blog - Tempatmu Belajar Ngoding{% endblock %}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>{% block title %}Technisius Blog - Tempatmu Belajar Ngoding{% endblock %}</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            100: '#e5e7eb',
+                            200: '#d1d5db',
+                            300: '#9ca3af',
+                            400: '#6b7280',
+                            500: '#4b5563',
+                            600: '#374151',
+                            700: '#1f2937',
+                            800: '#111827',
+                            900: '#0d1321',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        body {
-            background: #f8f9fa;
-            transition: background 0.3s, color 0.3s;
-        }
-        .navbar-brand {
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
-        .navbar {
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-        .card {
-            background: #fff;
-            border: none;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-        }
-        .dropdown-menu {
-            border-radius: 0.5rem;
-        }
-        footer {
-            background: #212529;
-            color: #fff;
-            padding: 1.5rem 0;
-            margin-top: 3rem;
-        }
-        .btn-read-more {
-            border-radius: 20px;
-            padding: 5px 15px;
-        }
-        /* Dark mode styles */
-        body.dark-mode {
-            background: #181a1b;
-            color: #e9ecef;
-        }
-        .dark-mode .navbar,
-        .dark-mode .navbar.bg-dark {
-            background: #23272b !important;
-        }
-        .dark-mode .card {
-            background: #fff;
-            color: #fff;
-        }
-        .dark-mode .dropdown-menu {
-            background: #23272b;
-            color: #e9ecef;
-        }
-        .dark-mode footer {
-            background: #111315;
-            color: #e9ecef;
-        }
+        [x-cloak] { display: none !important; }
     </style>
 </head>
-<body>
+<body class="bg-gray-50 text-gray-800 dark:bg-dark-900 dark:text-gray-200 transition-colors duration-200">
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
-        <div class="container">
-            <a class="navbar-brand fs-3" href="/">Techanisius Blog</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link fw-semibold" href="/">Home</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle fw-semibold" href="#" role="button" data-bs-toggle="dropdown">
+    <nav class="bg-dark-800 dark:bg-dark-800 shadow-md py-3">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <a href="/" class="text-2xl font-bold text-white dark:text-gray-100">Technisius Blog</a>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="/" class="text-white dark:text-gray-200 hover:text-gray-300 dark:hover:text-gray-400 font-medium">Home</a>
+                    
+                    <div class="relative group">
+                        <button class="text-white dark:text-gray-200 hover:text-gray-300 dark:hover:text-gray-400 font-medium flex items-center">
                             Categories
-                        </a>
-                        <ul class="dropdown-menu">
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-48 bg-white dark:bg-dark-700 rounded-md shadow-lg py-1 z-10 hidden group-hover:block">
                             {% for category in categories %}
-                            <li><a class="dropdown-item" href="#">{{ category.name }}</a></li>
+                            <a href="#" class="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-dark-600">{{ category.name }}</a>
                             {% endfor %}
-                        </ul>
-                    </li>
-                </ul>
-                <!-- Toggle Button for Dark/Light Mode -->
-                <button id="toggleMode" class="btn btn-outline-light ms-auto" type="button">
-                    <span id="toggleIcon" class="bi bi-moon"></span> <span id="toggleText">Gelap</span>
+                        </div>
+                    </div>
+                    
+                    <button id="toggleMode" class="flex items-center space-x-1 text-white dark:text-gray-200 hover:text-gray-300 dark:hover:text-gray-400">
+                        <span id="toggleIcon" class="bi bi-moon"></span>
+                        <span id="toggleText">Gelap</span>
+                    </button>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobileMenuButton" class="text-white dark:text-gray-200">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile menu -->
+            <div id="mobileMenu" class="hidden md:hidden mt-2 pb-2">
+                <a href="/" class="block py-2 text-white dark:text-gray-200">Home</a>
+                <div class="py-2">
+                    <button class="flex items-center justify-between w-full text-white dark:text-gray-200">
+                        Categories
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="ml-4 mt-1">
+                        {% for category in categories %}
+                        <a href="#" class="block py-1 text-white dark:text-gray-300">{{ category.name }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+                <button id="toggleModeMobile" class="flex items-center space-x-1 py-2 text-white dark:text-gray-200">
+                    <span id="toggleIconMobile" class="bi bi-moon"></span>
+                    <span id="toggleTextMobile">Gelap</span>
                 </button>
             </div>
         </div>
     </nav>
 
-    <!-- Konten Utama -->
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-lg-9">
-                {% block content %}
-                {% endblock %}
-            </div>
-        </div>
-    </div>
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        {% block content %}
+        {% endblock %}
+    </main>
 
     <!-- Footer -->
-    <footer class="text-center">
-        <div class="container">
-            <p class="mb-0">&copy; {{ now|date:"Y" }} Techanisius Blog. All rights reserved.</p>
+    <footer class="bg-dark-800 dark:bg-dark-800 text-white dark:text-gray-300 py-6 mt-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; {{ now|date:"Y" }} Technisius Blog. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- Script Bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Bootstrap Icons CDN for moon/sun icon -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <!-- Scripts -->
     <script>
-        // Check localStorage for mode
+        // Mobile menu toggle
+        document.getElementById('mobileMenuButton').addEventListener('click', function() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Dark mode toggle function
         function setMode(mode) {
             if (mode === 'dark') {
-                document.body.classList.add('dark-mode');
+                document.documentElement.classList.add('dark');
                 document.getElementById('toggleIcon').className = 'bi bi-sun';
                 document.getElementById('toggleText').innerText = 'Terang';
+                document.getElementById('toggleIconMobile').className = 'bi bi-sun';
+                document.getElementById('toggleTextMobile').innerText = 'Terang';
+                document.cookie = "theme=dark; path=/; max-age=31536000";
             } else {
-                document.body.classList.remove('dark-mode');
+                document.documentElement.classList.remove('dark');
                 document.getElementById('toggleIcon').className = 'bi bi-moon';
                 document.getElementById('toggleText').innerText = 'Gelap';
+                document.getElementById('toggleIconMobile').className = 'bi bi-moon';
+                document.getElementById('toggleTextMobile').innerText = 'Gelap';
+                document.cookie = "theme=light; path=/; max-age=31536000";
             }
-            localStorage.setItem('theme', mode);
         }
-        document.addEventListener('DOMContentLoaded', function() {
-            const savedMode = localStorage.getItem('theme') || 'light';
-            setMode(savedMode);
 
+        // Initialize theme
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check for saved theme preference or use system preference
+            const savedTheme = getCookie('theme');
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            const initialTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+            setMode(initialTheme);
+
+            // Toggle button event
             document.getElementById('toggleMode').addEventListener('click', function() {
-                const isDark = document.body.classList.contains('dark-mode');
+                const isDark = document.documentElement.classList.contains('dark');
+                setMode(isDark ? 'light' : 'dark');
+            });
+
+            // Mobile toggle button event
+            document.getElementById('toggleModeMobile').addEventListener('click', function() {
+                const isDark = document.documentElement.classList.contains('dark');
                 setMode(isDark ? 'light' : 'dark');
             });
         });
+
+        // Helper function to get cookie
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
     </script>
 </body>
 </html>
