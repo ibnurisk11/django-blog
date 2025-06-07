@@ -1,28 +1,42 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-<div class="max-w-4xl mx-auto px-4 py-8">
+<div class="max-w-2xl mx-auto px-4 py-8">
     <h2 class="text-3xl font-bold mb-8 dark:text-white">📰 Artikel Terbaru</h2>
 
     {% for post in posts %}
-    <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-6 mb-8 shadow-sm dark:shadow-none dark:bg-dark-700">
-        <h3 class="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-2">
-            <a href="{% url 'post_detail' pk=post.pk %}" class="hover:underline">
-                {{ post.title }}
-            </a>
-        </h3>
-
-        <div class="flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-gray-400 mb-4">
-            <span>Kategori: <strong>{{ post.category.name }}</strong></span>
-            <span>•</span>
-            <span>Oleh: <strong>{{ post.author.username }}</strong></span>
-            <span>•</span>
-            <span>Dipublikasikan: <strong>{{ post.created_at|date:"d M Y" }}</strong></span>
+    <div class="bg-white dark:bg-dark-700 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-md mb-10 overflow-hidden">
+        {% if post.thumbnail %}
+        <img src="{{ post.thumbnail.url }}" alt="{{ post.title }}" class="w-full h-56 object-cover">
+        {% elif post.featured_image %}
+        <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="w-full h-56 object-cover">
+        {% else %}
+        <div class="w-full h-56 bg-gray-200 dark:bg-gray-800 flex items-center justify-center text-gray-400 text-4xl">
+            <span class="material-icons text-6xl">image</span>
         </div>
-
-        <p class="text-gray-800 dark:text-gray-300">
-            {{ post.meta_description|default:post.content|striptags|truncatewords:30 }}
-        </p>
+        {% endif %}
+        <div class="p-6">
+            <span class="inline-block bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded mb-3"> {{ post.category.name }} </span>
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4 leading-tight">
+                <a href="{% url 'post_detail' pk=post.pk %}" class="hover:underline">
+                    {{ post.title }}
+                </a>
+            </h3>
+            <div class="flex items-center mb-4">
+                {% if post.author.profile.image %}
+                <img src="{{ post.author.profile.image.url }}" alt="{{ post.author.username }}" class="w-8 h-8 rounded-full mr-3">
+                {% else %}
+                <div class="w-8 h-8 rounded-full bg-gray-300 mr-3"></div>
+                {% endif %}
+                <div>
+                    <a href="#" class="font-semibold text-blue-700 dark:text-blue-400 hover:underline">{{ post.author.get_full_name|default:post.author.username }}</a>
+                    <div class="text-xs text-gray-500 dark:text-gray-400">Dipublikasikan: {{ post.created_at|date:"d M Y" }}</div>
+                </div>
+            </div>
+            <p class="text-gray-700 dark:text-gray-300 mb-2">
+                {{ post.meta_description|default:post.content|striptags|truncatewords:30 }}
+            </p>
+        </div>
     </div>
     {% empty %}
         <p class="text-gray-600 dark:text-gray-400">Tidak ada artikel yang tersedia.</p>
