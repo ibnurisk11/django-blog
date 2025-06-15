@@ -1,0 +1,103 @@
+{% extends "blog/base.html" %}
+{% block content %}
+
+<!-- Welcome Area -->
+<section id="welcome" class="bg-gradient-to-br from-blue-50 to-white py-16">
+    <div class="container mx-auto flex flex-col md:flex-row items-center gap-8 px-4">
+        <div class="flex-1">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 font-poppins">
+                <span class="underline decoration-orange-500 decoration-4 underline-offset-4">
+                    Mendigitalisasi Kebutuhan Anda <em class="text-blue-600 not-italic">Dengan Sempurna</em>
+                </span>
+            </h1>
+            <p class="mb-6 text-lg text-gray-700">Techanius berkomitmen memberikan jasa IT dengan jenius dan sempurna.</p>
+            <a href="#about" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg shadow hover:bg-blue-700 transition font-semibold">Hubungi Kami</a>
+        </div>
+        <div class="flex-1 flex justify-center">
+            <img src="/django-blog/media/main/web.png" alt="banner techanius" class="max-w-xs md:max-w-md rounded-xl shadow-lg">
+        </div>
+    </div>
+</section>
+
+<!-- About / Layanan Kami -->
+<section id="about" class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="max-w-2xl mx-auto text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 font-poppins">
+                Mengapa Harus <em class="text-blue-600 not-italic">Techanius</em>
+            </h2>
+            <p class="text-gray-700 mb-6">
+                Techanius adalah penyedia layanan teknologi yang menawarkan solusi digital terbaru untuk kebutuhan bisnis Anda. Kami fokus pada pengembangan aplikasi yang dirancang untuk mendukung peningkatan kinerja dan kelancaran operasional bisnis Anda.
+            </p>
+            <hr class="my-6 border-gray-200">
+            <h2 class="text-2xl font-semibold mt-8 font-poppins">Layanan Kami?</h2>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-blue-50 rounded-xl p-8 shadow hover:shadow-lg transition">
+                <div class="text-blue-600 text-4xl mb-4"><i class="fa fa-paper-plane"></i></div>
+                <h4 class="text-xl font-semibold mb-2">Landing Page Website</h4>
+                <p class="text-gray-600">Kami menciptakan landing page yang memukau, dirancang untuk menarik perhatian pengunjung dan mendorong konversi yang lebih tinggi bagi bisnis Anda.</p>
+            </div>
+            <div class="bg-blue-50 rounded-xl p-8 shadow hover:shadow-lg transition">
+                <div class="text-blue-600 text-4xl mb-4"><i class="fa fa-building"></i></div>
+                <h4 class="text-xl font-semibold mb-2">Profile Usaha/Lembaga</h4>
+                <p class="text-gray-600">Solusi website untuk profil usaha atau lembaga yang tidak hanya informatif tetapi juga mencerminkan identitas profesional Anda dengan cara yang elegan.</p>
+            </div>
+            <div class="bg-blue-50 rounded-xl p-8 shadow hover:shadow-lg transition">
+                <div class="text-blue-600 text-4xl mb-4"><i class="fa fa-globe"></i></div>
+                <h4 class="text-xl font-semibold mb-2">Custom Website</h4>
+                <p class="text-gray-600">Kami menyediakan pengembangan website yang sepenuhnya disesuaikan dengan kebutuhan spesifik bisnis Anda, dari desain hingga fitur yang paling kompleks.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Tahapan / Promotion -->
+<section id="promotion" class="py-16 bg-gradient-to-br from-blue-50 to-white">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row items-center gap-12">
+            <div class="md:w-1/2 mb-8 md:mb-0">
+                <h3 class="text-2xl font-bold mb-6 font-poppins">Tahapan?</h3>
+                <img src="/static/assets/images/how.png" alt="cara memesan joki website" class="rounded-xl shadow-lg max-h-[400px] w-full object-contain">
+            </div>
+            <div class="md:w-1/2">
+                <ul class="space-y-8">
+                    <li class="flex items-start gap-4">
+                        <div class="text-blue-600 text-3xl"><i class="fa fa-comment"></i></div>
+                        <div>
+                            <h4 class="text-lg font-semibold mb-1">Diskusi Awal</h4>
+                            <p class="text-gray-600">Pada tahap ini, kami berdiskusi dengan Anda untuk memahami kebutuhan dan tujuan proyek, serta memastikan bahwa semua harapan dan persyaratan tercapai dengan jelas.</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-4">
+                        <div class="text-blue-600 text-3xl"><i class="fa fa-cogs"></i></div>
+                        <div>
+                            <h4 class="text-lg font-semibold mb-1">Pengerjaan</h4>
+                            <p class="text-gray-600">Setelah diskusi, kami memulai pengerjaan proyek dengan merancang dan mengembangkan solusi yang sesuai dengan spesifikasi yang telah disepakati, memastikan kualitas dan keandalan.</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-4">
+                        <div class="text-blue-600 text-3xl"><i class="fa fa-check-circle"></i></div>
+                        <div>
+                            <h4 class="text-lg font-semibold mb-1">Verifikasi dan Uji Coba</h4>
+                            <p class="text-gray-600">Pada tahap ini, kami melakukan verifikasi untuk memastikan bahwa semua fitur berjalan dengan baik, serta melakukan uji coba untuk memastikan kualitas dan kelancaran operasional.</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-4">
+                        <div class="text-blue-600 text-3xl"><i class="fa fa-rocket"></i></div>
+                        <div>
+                            <h4 class="text-lg font-semibold mb-1">Peluncuran</h4>
+                            <p class="text-gray-600">Setelah verifikasi selesai, kami meluncurkan solusi ke lingkungan produksi, memastikan bahwa semuanya berjalan dengan lancar dan siap digunakan untuk kebutuhan Anda.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- WhatsApp Floating Button -->
+<a href="https://wa.me/6281563939538" class="fixed bottom-6 right-6 z-50" target="_blank" title="Kontak WhatsApp">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="Kontak WhatsApp" class="w-14 h-14 rounded-full shadow-lg border-2 border-green-500 hover:scale-110 transition">
+</a>
+{% endblock %}

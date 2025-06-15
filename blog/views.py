@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Post, Category
 from .forms import PostForm  # Pastikan forms.py sudah ada
 
+def home(request):
+    return render(request, 'blog/home.html')
+
 def post_list(request):
     posts = Post.objects.all()
     categories = Category.objects.all()
